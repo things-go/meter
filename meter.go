@@ -67,41 +67,13 @@ func (b ByteSize) MarshalText() ([]byte, error) {
 }
 
 func (b *ByteSize) UnmarshalText(t []byte) error {
-	var val uint64
-	var c byte
 	var i int
-	var cutoff uint64 = math.MaxUint64 / 10
 
 	// backup for error message
 	t0 := t
 
-loop:
-	for i < len(t) {
-		c = t[i]
-		switch {
-		case '0' <= c && c <= '9':
-			if val > cutoff {
-				return &strconv.NumError{
-					Func: "UnmarshalText",
-					Num:  string(t0),
-					Err:  strconv.ErrRange,
-				}
-			}
-
-			c = c - '0'
-			val *= 10
-
-			if val > val+uint64(c) { // val+v overflows
-				return &strconv.NumError{
-					Func: "UnmarshalText",
-					Num:  string(t0),
-					Err:  strconv.ErrRange,
-				}
-			}
-			val += uint64(c)
-			i++
-
-		default:
+	for ; i < len(t); i++ {
+		if c := t[i]; !(('0' <= c && c <= '9') || c == '.') {
 			if i == 0 {
 				*b = 0
 				return &strconv.NumError{
@@ -110,7 +82,16 @@ loop:
 					Err:  strconv.ErrSyntax,
 				}
 			}
-			break loop
+			break
+		}
+	}
+
+	val, err := strconv.ParseFloat(string(t[:i]), 10)
+	if err != nil {
+		return &strconv.NumError{
+			Func: "UnmarshalText",
+			Num:  string(t0),
+			Err:  err,
 		}
 	}
 
@@ -138,7 +119,7 @@ loop:
 			Err:  strconv.ErrSyntax,
 		}
 	}
-	if val > math.MaxUint64/unit {
+	if uint64(val) > math.MaxUint64/unit {
 		*b = ByteSize(math.MaxUint64)
 		return &strconv.NumError{
 			Func: "UnmarshalText",
@@ -146,7 +127,7 @@ loop:
 			Err:  strconv.ErrRange,
 		}
 	}
-	*b = ByteSize(val * unit)
+	*b = ByteSize(uint64(val) * unit)
 	return nil
 }
 

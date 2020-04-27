@@ -1,6 +1,7 @@
 package meter
 
 import (
+	"bytes"
 	"math"
 	"testing"
 
@@ -35,6 +36,13 @@ func TestByteSize(t *testing.T) {
 	if got, want := ByteSize(1024*1024*1024*1024*1024*1024*12).EBytes(), 12.0; !cmp.Equal(got, want, opt) {
 		t.Errorf("EBytes() = %v, want %v", got, want)
 	}
+	got, err := ByteSize(5).MarshalText()
+	if err != nil {
+		t.Errorf("MarshalText() Err = %v, want %v", got, false)
+	}
+	if want := []byte("5B"); !bytes.Equal(got, want) {
+		t.Errorf("MarshalText() = %v, want %v", got, want)
+	}
 }
 
 func TestParseBytes(t *testing.T) {
@@ -47,7 +55,18 @@ func TestParseBytes(t *testing.T) {
 		want    uint64
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{"5B", args{"5B"}, 5, false},
+		{"B", args{"100.0B"}, 100, false},
+		{"KB", args{"100.0KB"}, 1024 * 100, false},
+		{"MB", args{"100.0MB"}, 1024 * 1024 * 100, false},
+		{"GB", args{"100.0GB"}, 1024 * 1024 * 1024 * 100, false},
+		{"TB", args{"100.0TB"}, 1024 * 1024 * 1024 * 1024 * 100, false},
+		{"PB", args{"100.0PB"}, 1024 * 1024 * 1024 * 1024 * 1024 * 100, false},
+		{"EB", args{"10.0EB"}, 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 10, false},
+		{"no number", args{"b"}, 0, true},
+		{"invalid unit", args{"101.0cb"}, 0, true},
+		{"invalid number", args{"10.0.1B"}, 0, true},
+		{"value out of range", args{"1000.0EB"}, math.MaxUint64, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -58,6 +77,33 @@ func TestParseBytes(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("ParseBytes() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestHumanSize(t *testing.T) {
+	type args struct {
+		bytes uint64
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantS string
+	}{
+		{"5B", args{5}, "5B"},
+		{"B", args{100}, "100.0B"},
+		{"KB", args{1024 * 100}, "100.0KB"},
+		{"MB", args{1024 * 1024 * 100}, "100.0MB"},
+		{"GB", args{1024 * 1024 * 1024 * 100}, "100.0GB"},
+		{"TB", args{1024 * 1024 * 1024 * 1024 * 100}, "100.0TB"},
+		{"PB", args{1024 * 1024 * 1024 * 1024 * 1024 * 100}, "100.0PB"},
+		{"EB", args{1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 10}, "10.0EB"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotS := HumanSize(tt.args.bytes); gotS != tt.wantS {
+				t.Errorf("HumanSize() = %v, want %v", gotS, tt.wantS)
 			}
 		})
 	}
