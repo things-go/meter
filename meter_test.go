@@ -4,36 +4,34 @@ import (
 	"bytes"
 	"math"
 	"testing"
-
-	"github.com/google/go-cmp/cmp"
 )
 
-var opt = cmp.Comparer(func(x, y float64) bool {
+func issFloatEqual(x, y float64) bool {
 	delta := math.Abs(x - y)
 	mean := math.Abs(x+y) / 2.0
 	return delta/mean < 0.000001
-})
+}
 
 func TestByteSize(t *testing.T) {
 	if got, want := ByteSize(100).Bytes(), uint64(100); got != want {
 		t.Errorf("Bytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*12).KBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*12).KBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("KBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*12).MBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*1024*12).MBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("MBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*1024*12).GBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*1024*1024*12).GBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("GBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*1024*1024*12).TBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*1024*1024*1024*12).TBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("TBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*1024*1024*1024*12).PBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*1024*1024*1024*1024*12).PBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("PBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*1024*1024*1024*1024*12).EBytes(), 12.0; !cmp.Equal(got, want, opt) {
+	if got, want := ByteSize(1024*1024*1024*1024*1024*1024*12).EBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("EBytes() = %v, want %v", got, want)
 	}
 	got, err := ByteSize(5).MarshalText()
