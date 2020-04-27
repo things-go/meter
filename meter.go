@@ -18,36 +18,45 @@ const (
 	EByte = PByte << 10
 )
 
+// ByteSize byte size
 type ByteSize uint64
 
+// Bytes to byte
 func (b ByteSize) Bytes() uint64 {
 	return uint64(b)
 }
 
+// KBytes to kilobyte
 func (b ByteSize) KBytes() float64 {
 	return float64(b/KByte) + float64(b%KByte)/float64(KByte)
 }
 
+// MBytes to megabyte
 func (b ByteSize) MBytes() float64 {
 	return float64(b/MByte) + float64(b%MByte)/float64(MByte)
 }
 
+// GBytes to gigabyte
 func (b ByteSize) GBytes() float64 {
 	return float64(b/GByte) + float64(b%GByte)/float64(GByte)
 }
 
+// TBytes to terabyte
 func (b ByteSize) TBytes() float64 {
 	return float64(b/TByte) + float64(b%TByte)/float64(TByte)
 }
 
+// PBytes to petabyte
 func (b ByteSize) PBytes() float64 {
 	return float64(b/PByte) + float64(b%PByte)/float64(PByte)
 }
 
+// EBytes to ebyte
 func (b ByteSize) EBytes() float64 {
 	return float64(b/EByte) + float64(b%EByte)/float64(EByte)
 }
 
+// String to string like xxB,xxKB,xxMB,xxGB,xxTB,xxPB,xxEB
 func (b ByteSize) String() string {
 	if b < 10 {
 		return fmt.Sprintf("%dB", b)
@@ -58,14 +67,17 @@ func (b ByteSize) String() string {
 	return fmt.Sprintf("%0.1f%s", val, sizes[int(e)])
 }
 
+// HumanSize human readable string
 func (b ByteSize) HumanSize() string {
 	return b.String()
 }
 
+// MarshalText marshal to text
 func (b ByteSize) MarshalText() ([]byte, error) {
 	return []byte(b.String()), nil
 }
 
+// UnmarshalText unmarshal to ByteSize
 func (b *ByteSize) UnmarshalText(t []byte) error {
 	var i int
 
@@ -131,12 +143,14 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 	return nil
 }
 
+// ParseBytes parse a human string to byte
 func ParseBytes(s string) (uint64, error) {
 	v := ByteSize(0)
 	err := v.UnmarshalText([]byte(s))
 	return v.Bytes(), err
 }
 
+// HumanSize human readable string
 func HumanSize(bytes uint64) (s string) {
 	return ByteSize(bytes).HumanSize()
 }
