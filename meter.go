@@ -143,22 +143,14 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 	return nil
 }
 
-// ParseBytes parse a human string to bytes(B)
-// unit can be below( case-insensitive ):
-// "", "b", "byte",
-// "k", "kb", "kilo", "kilobyte", "kilobytes",
-// "m", "mb", "mega", "megabyte", "megabytes",
-// "g", "gb", "giga", "gigabyte", "gigabytes",
-// "t", "tb", "tera", "terabyte", "terabytes",
-// "p", "pb", "peta", "petabyte", "petabytes",
-// "e", "ebyte", "eb",
+// ParseBytes parse a human string to byte
 func ParseBytes(s string) (uint64, error) {
 	v := ByteSize(0)
 	err := v.UnmarshalText([]byte(s))
 	return v.Bytes(), err
 }
 
-// HumanSize conver to human readable string
+// HumanSize human readable string
 func HumanSize(bytes uint64) (s string) {
 	return ByteSize(bytes).HumanSize()
 }
