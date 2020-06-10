@@ -121,7 +121,7 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 		unit = TByte
 	case "p", "pb", "peta", "petabyte", "petabytes":
 		unit = PByte
-	case "e", "ebyte", "eb":
+	case "e", "eb", "exa", "exabyte", "exabytes":
 		unit = EByte
 	default:
 		*b = 0
