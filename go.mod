@@ -1,3 +1,3 @@
-module github.com/go-ponder/meter
+module github.com/thinkgos/meter
 
 go 1.14
