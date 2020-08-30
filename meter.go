@@ -90,7 +90,7 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 	t0 := t
 
 	for ; i < len(t); i++ {
-		if c := t[i]; !(('0' <= c && c <= '9') || c == '.') {
+		if c := t[i]; !((c >= '0' && c <= '9') || c == '.') {
 			if i == 0 {
 				*b = 0
 				return &strconv.NumError{

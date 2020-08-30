@@ -36,7 +36,7 @@ func TestByteSize(t *testing.T) {
 	if got, want := ByteSize(1024*1024*1024*1024*1024*12).PBytes(), 12.0; !issFloatEqual(got, want) {
 		t.Errorf("PBytes() = %v, want %v", got, want)
 	}
-	if got, want := ByteSize(1024*1024*1024*1024*1024*1024*12).EBytes(), 12.0; !issFloatEqual(got, want) {
+	if got, want := ByteSize(1024*1024*1024*1024*1024*1024*13).EBytes(), 13.0; !issFloatEqual(got, want) {
 		t.Errorf("EBytes() = %v, want %v", got, want)
 	}
 	got, err := ByteSize(5).MarshalText()
