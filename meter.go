@@ -68,8 +68,8 @@ func (b ByteSize) String() string {
 	}
 	sizes := []string{"B", "KB", "MB", "GB", "TB", "PB", "EB"}
 	e := math.Floor(math.Log(float64(b)) / math.Log(1024))
-	val := float64(b) / math.Pow(1024, e)
-	return fmt.Sprintf("%0.1f%s", val, sizes[int(e)])
+	val := float64(b)/math.Pow(1024, e) + 0.05
+	return fmt.Sprintf("%0.2f%s", val, sizes[int(e)])
 }
 
 // HumanSize human readable string
