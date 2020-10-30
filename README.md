@@ -49,14 +49,14 @@ storage metering,like B,KB,MB,GB,TB,PB,EB
     )
     
     func main() {
-        s := meter.HumanSize(100) 
-        value, _ := meter.ParseBytes("100k")
-        fmt.Println(s)
-        fmt.Println(value)
+    	value, _ := meter.ParseBytes("2.99TB")
+       	s := meter.HumanSize(value)
+       	fmt.Println(value)
+       	fmt.Println(s)
 
         // output:
-        // 100.0B
-        // 102400
+        // 3287539767050
+        // 2.99TB
     }
 ```
 
