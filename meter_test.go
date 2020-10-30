@@ -7,6 +7,7 @@ package meter
 
 import (
 	"bytes"
+	"fmt"
 	"math"
 	"testing"
 )
@@ -110,4 +111,15 @@ func TestHumanSize(t *testing.T) {
 			}
 		})
 	}
+}
+
+func ExampleHumanSize() {
+	value, _ := ParseBytes("2.99TB")
+	s := HumanSize(value)
+	fmt.Println(value)
+	fmt.Println(s)
+
+	// output:
+	// 3287539767050
+	// 2.99TB
 }
