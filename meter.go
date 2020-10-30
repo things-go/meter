@@ -136,6 +136,7 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 			Err:  strconv.ErrSyntax,
 		}
 	}
+
 	if uint64(val) > math.MaxUint64/unit {
 		*b = ByteSize(math.MaxUint64)
 		return &strconv.NumError{
@@ -144,7 +145,7 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 			Err:  strconv.ErrRange,
 		}
 	}
-	*b = ByteSize(uint64(val) * unit)
+	*b = ByteSize(val * float64(unit))
 	return nil
 }
 
