@@ -39,25 +39,26 @@ storage metering,like B,KB,MB,GB,TB,PB,EB
 
 ## Quick start
 
+[embedmd]:# (_example/main.go go)
 ```go
-    package main
-    
-    import (
-        "fmt"
+package main
 
-        "github.com/thinkgos/meter"
-    )
-    
-    func main() {
-    	value, _ := meter.ParseBytes("2.99TB")
-       	s := meter.HumanSize(value)
-       	fmt.Println(value)
-       	fmt.Println(s)
+import (
+	"fmt"
 
-        // output:
-        // 3287539767050
-        // 2.99TB
-    }
+	"github.com/thinkgos/meter"
+)
+
+func main() {
+	value, _ := meter.ParseBytes("2.99TB")
+	s := meter.HumanSize(value)
+	fmt.Println(value)
+	fmt.Println(s)
+
+	// output:
+	// 3287539767050
+	// 2.99TB
+}
 ```
 
 ## Reference
