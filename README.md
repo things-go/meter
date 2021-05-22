@@ -1,14 +1,14 @@
 # meter storage metering
 storage metering,like B,KB,MB,GB,TB,PB,EB
 
-[![GoDoc](https://godoc.org/github.com/thinkgos/meter?status.svg)](https://godoc.org/github.com/thinkgos/meter)
-[![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/thinkgos/meter?tab=doc)
-[![Build Status](https://www.travis-ci.org/thinkgos/meter.svg?branch=master)](https://www.travis-ci.org/thinkgos/meter)
-[![codecov](https://codecov.io/gh/thinkgos/meter/branch/master/graph/badge.svg)](https://codecov.io/gh/thinkgos/meter)
-![Action Status](https://github.com/thinkgos/meter/workflows/Go/badge.svg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/thinkgos/meter)](https://goreportcard.com/report/github.com/thinkgos/meter)
-[![License](https://img.shields.io/github/license/thinkgos/meter)](https://github.com/thinkgos/meter/raw/master/LICENSE)
-[![Tag](https://img.shields.io/github/v/tag/thinkgos/meter)](https://github.com/thinkgos/meter/tags)
+[![GoDoc](https://godoc.org/github.com/things-go/meter?status.svg)](https://godoc.org/github.com/things-go/meter)
+[![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-blue?logo=go&logoColor=white)](https://pkg.go.dev/github.com/things-go/meter?tab=doc)
+[![Build Status](https://www.travis-ci.com/things-go/meter.svg?branch=master)](https://www.travis-ci.com/things-go/meter)
+[![codecov](https://codecov.io/gh/things-go/meter/branch/master/graph/badge.svg)](https://codecov.io/gh/things-go/meter)
+![Action Status](https://github.com/things-go/meter/workflows/Go/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/things-go/meter)](https://goreportcard.com/report/github.com/things-go/meter)
+[![License](https://img.shields.io/github/license/things-go/meter)](https://github.com/things-go/meter/raw/master/LICENSE)
+[![Tag](https://img.shields.io/github/v/tag/things-go/meter)](https://github.com/things-go/meter/tags)
 
 
 ## Features
@@ -28,13 +28,13 @@ storage metering,like B,KB,MB,GB,TB,PB,EB
 1. You can use the below Go command to install meter.
 
 ```bash
-    go get -u github.com/thinkgos/meter
+    go get -u github.com/things-go/meter
 ```
 
 2. Import it in your code.
 
 ```go
-    import "github.com/thinkgos/meter"
+    import "github.com/things-go/meter"
 ```
 
 ## Quick start
@@ -46,7 +46,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/thinkgos/meter"
+	"github.com/things-go/meter"
 )
 
 func main() {

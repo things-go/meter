@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/thinkgos/meter"
+	"github.com/things-go/meter"
 )
 
 func main() {
