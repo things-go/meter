@@ -103,7 +103,7 @@ func (b *ByteSize) UnmarshalText(t []byte) error {
 		}
 	}
 
-	val, err := strconv.ParseFloat(string(t[:i]), 10)
+	val, err := strconv.ParseFloat(string(t[:i]), 64)
 	if err != nil {
 		return &strconv.NumError{
 			Func: "UnmarshalText",
